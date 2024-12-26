@@ -67,21 +67,25 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza
-            // name={pizza.name}
-            // ingredients={pizza.ingredients}
-            // price={pizza.price}
-            // photoName={pizza.photoName}
-            pizzaObj = {pizza}
-            key = {pizza.name}
-          />
-        ))}
-      </ul>
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza
+              // name={pizza.name}
+              // ingredients={pizza.ingredients}
+              // price={pizza.price}
+              // photoName={pizza.photoName}
+              pizzaObj={pizza}
+              key={pizza.name}
+            />
+          ))}
+        </ul>
+      )}
       {/* <Pizza
         name="Pizza Margherita"
         ingredients="Tomato and mozarella"
@@ -112,7 +116,16 @@ function Footer() {
   // }
 
   return (
-    <footer className="footer">{new Date().toLocaleTimeString()} @2025</footer>
+    <footer className="footer">
+      {isOpen && (
+        <div className="order">
+          <p>
+            We are open from {openHour} to {closeHour}. Come and get your pizza!
+          </p>
+          <button className="btn">Order now</button>
+        </div>
+      )}
+    </footer>
   );
 }
 
