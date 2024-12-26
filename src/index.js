@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
 const pizzaData = [
   {
@@ -48,22 +49,84 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
-      <h1>Hello, React 19!</h1>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+    <div class="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
   );
 }
-
-function Pizza() {
+function Header() {
+  // const style = { color: "red", fontSize: "48px", textTransform: "uppercase" };
+  const style = {};
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci" />
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-    </div>
+    <header className="header footer">
+      <h1 style={style}>Fast React Pizza Co.</h1>
+    </header>
+  );
+}
+
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>Our Menu</h2>
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza
+            // name={pizza.name}
+            // ingredients={pizza.ingredients}
+            // price={pizza.price}
+            // photoName={pizza.photoName}
+            pizzaObj = {pizza}
+            key = {pizza.name}
+          />
+        ))}
+      </ul>
+      {/* <Pizza
+        name="Pizza Margherita"
+        ingredients="Tomato and mozarella"
+        price={10}
+        photoName="pizzas/margherita.jpg"
+      />
+      <Pizza
+        name="Pizza Funghi"
+        ingredients="Tomato, mozarella, mushrooms, and onion"
+        price={12}
+        photoName="pizzas/funghi.jpg"
+      /> */}
+    </main>
+  );
+}
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour < closeHour;
+  console.log("isOpen", isOpen);
+
+  // if (hour >= openHour && hour < closeHour) {
+  //   return <footer>We are open</footer>;
+  // } else {
+  //   alert("We are closed");
+  // }
+
+  return (
+    <footer className="footer">{new Date().toLocaleTimeString()} @2025</footer>
+  );
+}
+
+function Pizza(props) {
+  console.log("Pizza props", props);
+  return (
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.name} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price + 3}</span>
+      </div>
+    </li>
   );
 }
 
